@@ -1,0 +1,14 @@
+{
+  "name": "extractor",
+  "version": "1.0.0",
+  "description": "Responsável por extrair informações de cada requisição.",
+  "main": "extractor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "romariofreitas",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^4.8.6"
+  }
+}
