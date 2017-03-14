@@ -2,36 +2,19 @@ var http		 = require("http");
 var mongoose = require("./config/database.js")();
 var Info 		 = require("./models/info.js")();
 
-function extractorMiddleware (req, res, next) {
-
-	console.log("---------------------------------------------------");
-	console.log('HEADERS: ' + JSON.stringify(req.headers));
-	console.log("---------------------------------------------------");
+function extractor (req, res, next) {
 
 	var timerInicial = new Date().getTime();
-	console.log(timerInicial);
+	var timerFinal = null;
+	var requestTime = null;
+
 	res.on('finish', function() {
+		timerFinal = new Date().getTime();
+		requestTime = timerFinal - timerInicial;
 
-	    console.log("HeadersSent " + res.headersSent);
-	    console.log("statusCode " + res.statusCode);
-	    console.log(res._headers);
-	    console.log("Content-Type", res._headers['content-type']);
-
-  	});
-  	var timerFinal = new Date().getTime();
-		console.log(timerFinal);
-
-		console.log(timerFinal - timerInicial);
-
-  	console.log("---------------------------------------------------");
-
-		res.on('error', function(error) {
-	    //console.log("error " + error);
-  	});
-
-		var info = new Info(
+		var info = new Info (
 			{ "service" : {"name": "Payfast", "status": "up"},
-				"request" : {"time": 12, "method": req.method, "url": req.url},
+				"request" : {"time": requestTime, "method": req.method, "url": req.url},
 				"response": {"statusCode": res.statusCode, "contentType": res._headers['content-type'], "error": ""}
 			});
 
@@ -43,9 +26,18 @@ function extractorMiddleware (req, res, next) {
 			}
 		});
 
+	});
+
+
+	res.on('error', function(error) {
+  	//console.log("error " + error);
+	});
+
+
+
   	next();
 };
 
 module.exports = function () {
-	return extractorMiddleware;
+	return extractor;
 };
