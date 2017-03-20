@@ -1,4 +1,4 @@
-var restify = require("restify");
+const restify = require("restify");
 
 function ClienteCartoes() {
 	this._cliente = restify.createJsonClient({

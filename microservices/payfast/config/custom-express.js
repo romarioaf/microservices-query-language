@@ -1,8 +1,8 @@
-var express = require('express');
-var consign = require('consign');
-var bodyParser = require('body-parser');
-var expressValidator = require('express-validator');
-var extractor = require('../../../extractor/extractor');
+const express = require('express');
+const consign = require('consign');
+const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
+const extractor = require('../../../extractor/extractor');
 
 module.exports = function() {
 	var app = express();
